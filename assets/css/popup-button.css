@@ -1,0 +1,122 @@
+/* CWF Floating Button & Popup */
+
+/* Disable scroll when popup is open */
+body.cwf-popup-open {
+    overflow: hidden;
+    padding-right: 17px; /* Compensate for scrollbar disappearance */
+}
+
+/* Side button */
+.cwf-admin-side-button {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    z-index: 99;
+}
+
+.cwf-admin-side-button a {
+    display: block;
+    background: #9D4D22;
+    color: #fff;
+    padding: 35px 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: "Red Hat Display", sans-serif;
+    text-align: center;
+    transform: rotate(180deg);
+    transition: background 0.3s;
+}
+
+.cwf-admin-side-button a:hover {
+    background: #f7f5f0;
+    color:#9D4D22;
+}
+
+/* Popup Styles */
+.cwf-admin-popup {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 100);
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.cwf-admin-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cwf-admin-popup-content {
+    background: #fff;
+    width: 100%;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.4s ease;
+}
+
+.cwf-admin-popup.active .cwf-admin-popup-content {
+    transform: translateY(0);
+}
+
+/* Close button */
+.cwf-admin-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 37px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #9D4D22;
+    font-weight: 300;
+    transition: color 0.3s ease;
+}
+
+
+@media (max-width: 991px) {
+    .cwf-admin-popup-close {
+        height: 40px;
+		right: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 6px;
+    }
+
+    /* Centered until scroll; transitions only after JS adds --motion-ready (avoids load jump) */
+    .cwf-admin-side-button {
+        top: 90%;
+        bottom: auto;
+        right: 0;
+        transform: translateY(-50%);
+    }
+
+    .cwf-admin-side-button.cwf-admin-side-button--motion-ready {
+        transition:
+            top 0.8s cubic-bezier(0.28, 1, 0.46, 1),
+            bottom 0.8s cubic-bezier(0.28, 1, 0.46, 1),
+            transform 0.8s cubic-bezier(0.28, 1, 0.46, 1);
+    }
+
+    .cwf-admin-side-button.cwf-admin-side-button--scroll-docked {
+        top: auto;
+        bottom: max(12px, env(safe-area-inset-bottom, 0px));
+        transform: none;
+    }
+
+    .cwf-admin-side-button a {
+        min-height: 135px;
+		padding:15px 8px;
+    }
+	
+}
